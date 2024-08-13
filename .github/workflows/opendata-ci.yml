@@ -2,12 +2,12 @@ name: Open Data CI
 on:
   push:
     branches:
-      - main
+      - dev
     paths:
       - 'src/open-data/**/*.{csv,json}'
   pull_request:
     branches:
-      - main
+      - dev
     paths:
       - 'src/open-data/**/*.{csv,json}'
 jobs:
