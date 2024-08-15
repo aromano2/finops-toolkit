@@ -1,7 +1,6 @@
 name: Open Data CI
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
     branches:
       - dev
     paths:
@@ -9,6 +8,7 @@ on:
       - 'src/open-data/**/*.json'
 jobs:
   build:
+    if: github.event.type == 'opened' || github.event.type == 'reopened' || github.event.type == 'synchronize'
     runs-on: ubuntu-latest
     env: 
       CI_COMMIT_MESSAGE: Continuous Integration Build Artifacts
@@ -34,10 +34,9 @@ jobs:
 
     # Build
     - name: Build Open Data
-      if: env.is-auto-commit == false
       shell: pwsh
       run: |
-        src/scripts/Build-OpenData.ps1 -PowerShell -Test        
+        src/scripts/Build-OpenData.ps1 -PowerShell        
     
     # Commit generated and commit files
     - name: Display event name 
@@ -49,3 +48,13 @@ jobs:
         git config --global user.email "username@users.noreply.github.com"
         git commit -a -m "${{ env.CI_COMMIT_MESSAGE }}"
         git push
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Test Open Data
+      shell: pwsh
+      run: |
+        src/scripts/Test-OpenData.ps1 -Test
