@@ -34,14 +34,13 @@ jobs:
       if: env.is-auto-commit == false
       shell: pwsh
       run: |
-        echo "git-status"
-        git status --porcelain
-        if ($toCommit.Count -gt 0)
+        $toCommit = git status --porcelain
+        if ($null -ne $toCommit)
         {
           echo "has-commits=true" >> $GUTHUB_ENV
         }
         
-        echo "commits=${toCommit.Count}"
+        echo "git-status=${toCommit}"
         echo "has-commits=${{ env.has-commits }}"
         echo "is-auto-commit=${{ env.is-auto-commit }}"
     - name: Commit Open Data
