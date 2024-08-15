@@ -36,6 +36,7 @@ jobs:
           echo "has-commits=true" >> $GUTHUB_ENV
         }
         
+        echo "commits=${toCommit.Count}"
         echo "has-commits=${{ env.has-commits }}"
         echo "is-auto-commit=${{ env.is-auto-commit }}"
       
