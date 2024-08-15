@@ -36,7 +36,7 @@ jobs:
         $toCommit = git status --porcelain
         if ($null -ne $toCommit)
         {
-          echo "has-commits=true" >> $GUTHUB_ENV
+          echo "has-commits=true" >> $GITHUB_ENV
         }
         else
         {
