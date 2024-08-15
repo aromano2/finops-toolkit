@@ -33,21 +33,13 @@ jobs:
       if: env.is-auto-commit == false
       shell: pwsh
       run: |
-        [array]$toCommit = git status --porcelain
-        if ($toCommit.Count -gt 0)
-        {
-          echo "has-commits=true" >> $GITHUB_ENV
-        }
-        else
-        {
-          echo "has-commits=false" >> $GITHUB_ENV
-        }
+
+        echo "to-commit=$(git status --porcelain)"
         
-        echo "git-status=${toCommit}"
-        echo "has-commits=${{ env.has-commits }}"
+        echo "to-commit=${env.to-Commit}"
         echo "is-auto-commit=${{ env.is-auto-commit }}"
     - name: Commit Open Data
-      if: env.is-auto-commit == false && env.has-commits == true
+      if: env.is-auto-commit == false && env.to-commit != null
       run: |
         git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
         git config --global user.email "finopstoolkit@users.noreply.github.com"
