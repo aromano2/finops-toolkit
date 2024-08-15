@@ -29,22 +29,13 @@ jobs:
       shell: pwsh
       run: |
         src/scripts/Build-OpenData.ps1 -PowerShell
-    - name: Check if updated
-      if: env.is-auto-commit == false
-      shell: pwsh
-      run: |
-
-        echo "to-commit=$(git status --porcelain)"
-        
-        echo "to-commit=${{ env.to-Commit }}"
-        echo "is-auto-commit=${{ env.is-auto-commit }}"
-    - name: Commit Open Data
-      if: env.is-auto-commit == false && env.to-commit != null
-      run: |
-        git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
-        git config --global user.email "finopstoolkit@users.noreply.github.com"
-        git commit -a -m "${{ env.CI_COMMIT_MESSAGE }}"
-        git push
+        if (git status --porcelain)
+        {
+          git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+          git config --global user.email "finopstoolkit@users.noreply.github.com"
+          git commit -a -m "${{ env.CI_COMMIT_MESSAGE }}"
+          git push
+        }
     - name: Test Open Data
       shell: pwsh
       run: |
