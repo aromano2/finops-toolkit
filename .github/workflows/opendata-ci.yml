@@ -12,7 +12,6 @@ jobs:
     env: 
       CI_COMMIT_MESSAGE: Open Data CI Commit
       CI_COMMIT_AUTHOR: ${{ github.event.repository.name }} CI
-      has-commits: false
     steps:
     - uses: actions/checkout@v3
       with:
@@ -38,6 +37,10 @@ jobs:
         if ($null -ne $toCommit)
         {
           echo "has-commits=true" >> $GUTHUB_ENV
+        }
+        else
+        {
+          echo "has-commits=false" >> $GITHUB_ENV
         }
         
         echo "git-status=${toCommit}"
