@@ -30,6 +30,10 @@ jobs:
       shell: pwsh
       run: |
         src/scripts/Build-OpenData.ps1 -PowerShell
+    - name: Check if updated
+      if: env.is-auto-commit == false
+      shell: pwsh
+      run: |
         [array]$toCommit = git status --porcelain
         if ($toCommit.Count -gt 0)
         {
@@ -39,7 +43,6 @@ jobs:
         echo "commits=${toCommit.Count}"
         echo "has-commits=${{ env.has-commits }}"
         echo "is-auto-commit=${{ env.is-auto-commit }}"
-      
     - name: Commit Open Data
       if: env.is-auto-commit == false && env.has-commits == true
       run: |
