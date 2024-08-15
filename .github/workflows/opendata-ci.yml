@@ -20,7 +20,7 @@ jobs:
         ref: ${{ github.event.pull_request.head.ref }}
         token: ${{ secrets.WORKFLOW_GIT_ACCESS_TOKEN }}
     - name: test
-      run: echo "${{ github.event.type}}""
+      run: echo "${{ github.event.type}}"
     # Set environment variables based on the last commit
     - name: Set environment variable "commit-message"
       run: echo "commit-message=$(git log -1 --pretty=format:'%s')" >> $GITHUB_ENV
