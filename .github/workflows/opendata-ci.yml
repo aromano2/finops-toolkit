@@ -39,4 +39,4 @@ jobs:
     - name: Test Open Data
       shell: pwsh
       run: |
-        src/scripts/Test-OpenData.ps1 -Test
+        src/scripts/Build-OpenData.ps1 -Test
