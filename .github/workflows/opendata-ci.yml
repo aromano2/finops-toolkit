@@ -33,7 +33,7 @@ jobs:
         [array]$toCommit = git status --porcelain
         if ($toCommit.Count -gt 0)
         {
-          env.has-commits = true
+          ${{ env.has-commits }} = true
         }
     - name: Commit Open Data
       if: env.is-auto-commit == false && env.has-commits == true
