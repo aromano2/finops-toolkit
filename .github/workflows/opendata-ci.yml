@@ -35,6 +35,10 @@ jobs:
         {
           echo "has-commits=true" >> $GUTHUB_ENV
         }
+        
+        echo "has-commits=${{ env.has-commits }}"
+        echo "is-auto-commit=${{ env.is-auto-commit }}"
+      
     - name: Commit Open Data
       if: env.is-auto-commit == false && env.has-commits == true
       run: |
