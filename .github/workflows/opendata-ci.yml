@@ -36,7 +36,7 @@ jobs:
 
         echo "to-commit=$(git status --porcelain)"
         
-        echo "to-commit=${env.to-Commit}"
+        echo "to-commit=${{ env.to-Commit }}"
         echo "is-auto-commit=${{ env.is-auto-commit }}"
     - name: Commit Open Data
       if: env.is-auto-commit == false && env.to-commit != null
