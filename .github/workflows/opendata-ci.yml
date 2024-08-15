@@ -34,7 +34,8 @@ jobs:
       if: env.is-auto-commit == false
       shell: pwsh
       run: |
-        [array]$toCommit = git status --porcelain
+        echo "git-status"
+        git status --porcelain
         if ($toCommit.Count -gt 0)
         {
           echo "has-commits=true" >> $GUTHUB_ENV
